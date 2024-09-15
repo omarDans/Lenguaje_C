@@ -12,17 +12,18 @@ void main()
 
     fahr = lower;
     
-    printf("fahr | celsius\n\n");
+    printf("%3s %6s\n", "fahr", "celsius");
     while(fahr <= upper) {
         celsius = (5.0/9.0) * (fahr - 32.0);
-        printf("%3.0f %9.1f\n", fahr, celsius);
+        printf("%3.0f %6.1f\n", fahr, celsius);
         fahr = fahr + step;
     }
+    printf("\n\n");
     celsius = lower;
-    printf("celsius | fahr\n\n");
+    printf("%3s %4s\n", "celsius", "fahr");
     while (celsius <= upper) {
         fahr = celsius * 9.0 / 5.0 + 32;
-        printf("%3.0f %9.0f\n", celsius, fahr);
+        printf("%3.0f %7.0f\n", celsius, fahr);
         celsius = celsius + step;
     }
 }
