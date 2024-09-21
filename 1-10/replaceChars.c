@@ -1,4 +1,5 @@
 // No encontré otra manera de hacer esto sin usar la libreria ncurses ya que getchar() no registra el retroceso
+// Instalación libreria ncurses en linux: sudo apt-get install libncurses5-dev libncursesw5-dev
 
 #include <stdio.h>
 #include <ncurses.h>
