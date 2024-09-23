@@ -5,11 +5,11 @@
 
 #define MAXLINE 20
 
-int getline(char **line);
-void copy(char **to, char from[]);
+int _getline(char **line);
+void _copy(char **to, char from[]);
 int _strLen(char s[]);
 
-main()
+int main()
 {
     int len;
     int max;
@@ -17,19 +17,21 @@ main()
     char *longest = NULL;
 
     max = 0;
-    while((len = getline(&line)) > 0) {
+    while((len = _getline(&line)) > 0) {
         if (len > max) {
             max = len;
-            copy(&longest, line);
+            _copy(&longest, line);
         }
     }    
     if (max > 0) {
         printf("%s", longest);
     }
+    free(line);
+    free(longest);
     return 0;
 }
 
-int getline(char **s){
+int _getline(char **s){
     int c, i, numero;
     numero = MAXLINE;
     *s = (char *)malloc(numero * sizeof(char));
@@ -57,21 +59,28 @@ int getline(char **s){
     return i;
 }
 
-void copy(char **to, char from[]) {
+void _copy(char **to, char from[]) {
     int i, length;
     i = 0;
-    *to = (char *)malloc(sizeof(char) * MAXLINE);
-    if ((length = _strLen(from)) > MAXLINE) {
-        char *temp = realloc(*to, length + 1);
-        if (temp == NULL) {
-            return;
-        }
-        *to = temp;
-        printf("se realoco 2!\n");
+    length = _strLen(from);
+    free(*to);
+    *to = (char *)malloc(sizeof(char) * length + 1);
+    if (*to == NULL) {
+        printf("Fallo al asignar memoria en _copy\n");
+        exit(-1);
     }
-    while(((*to)[i] = from[i]) != '\0') {
+    // if ((length = _strLen(from)) > MAXLINE) {
+    //     char *temp = realloc(*to, length + 1);
+    //     if (temp == NULL) {
+    //         return;
+    //     }
+    //     *to = temp;
+    //     printf("se realoco 2!\n");
+    // }
+    while(i < length && ((*to)[i] = from[i]) != '\0') {
         ++i;
     }
+    (*to)[i] = '\0';
 }
 
 int _strLen(char s[]) {
