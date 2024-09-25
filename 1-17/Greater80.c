@@ -4,12 +4,12 @@
 #define MINIMUM 80
 #define MAXLINE 100
 
-int getline(char **line);
-void copy(char **to, char from[]);
+int _getline(char **line);
+void _copy(char **to, char from[]);
 int _strLen(char s[]);
 void removeWhiteTab(char **s, int len);
 
-main()
+int main()
 {
     int c;
     int len;
@@ -17,22 +17,27 @@ main()
     char *line = NULL;
     char *longest = NULL;
 
-    while((len = getline(&line)) > 0) {
+    while((len = _getline(&line)) > 0) {
         if (len >= max) {
-            copy(&longest, line);
+            _copy(&longest, line);
         }
     } 
     if (longest != NULL) {
+        printf("\n\nFRASES MAS LARGAS\n\n");
         printf("%s", longest);
-        free(longest);
-        longest = NULL;
     }
     free(line);
+    free(longest);
+    longest = NULL;
     line = NULL;
+
+    return 0;
 }
 
 
-int getline(char **s){
+int _getline(char **s){
+    free(*s);
+    *s = NULL;
     int c, i, numero;
     numero = MAXLINE;
     *s = (char *)malloc(numero * sizeof(char));
@@ -48,7 +53,6 @@ int getline(char **s){
             }
             *s = temp;
             numero += 100;
-            printf("se realoco!\n");
         }
         (*s)[i] = c;
     }
@@ -60,36 +64,25 @@ int getline(char **s){
     return i;
 }
 
-void copy(char **to, char from[]) {
+void _copy(char **to, char from[]) {
     int i, length, length2, numero;
     numero = MAXLINE;
     i = 0;
     if (*to == NULL) {
-        *to = (char *)malloc(sizeof(char) * numero);
-        if ((length = _strLen(from)) > numero) {
-            char *temp = realloc(*to, length);
-            if (temp == NULL) {
-                return;
-            }
-            *to = temp;
-            numero += 100;
-            printf("se realoco 2!\n");
-        }
+        length = _strLen(from);
+        *to = (char *)malloc(sizeof(char) * length);
         while(((*to)[i] = from[i]) != '\0') {
             ++i;
         }
     } else {
         length = _strLen(*to);
         length2 = _strLen(from);
-        if ((length + length2) > numero) {
-            numero = length + length2;
-            char *temp = realloc(*to, numero);
-            if (temp == NULL) {
-                return;
-            }
-            *to = temp;
-            printf("Se realoco 3!\n");
+        numero = length + length2;
+        char *temp = realloc(*to, numero);
+        if (temp == NULL) {
+            return;
         }
+        *to = temp;
         while(((*to)[length+i] = from[i]) != '\0') {
             ++i;
         }
