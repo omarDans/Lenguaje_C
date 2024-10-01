@@ -4,13 +4,13 @@
 #define MINIMUM 80
 #define MAXLINE 100
 
-int getline(char **line);
-void copy(char **to, char from[]);
+int _getline(char **line);
+void _copy(char **to, char from[]);
 int _strLen(char s[]);
 void removeWhiteTab(char **s, int len);
-void reverseString(char **s, int len);
+void reverseString(char **s);
 
-main()
+int main()
 {
     int c;
     int len;
@@ -18,24 +18,26 @@ main()
     char *line = NULL;
     char *buffer = NULL;
 
-    while((len = getline(&line)) > 0) {
+    while((len = _getline(&line)) > 0) {
         removeWhiteTab(&line, len);
         if (line != NULL) {
-            reverseString(&line, len);
-            copy(&buffer, line);
+            reverseString(&line);
+            _copy(&buffer, line);
         }
     } 
     if (buffer != NULL) {
+        printf("\n\nREVERSED\n\n");
         printf("%s", buffer);
         free(buffer);
         buffer = NULL;
     }
     free(line);
     line = NULL;
+    return 0;
 }
 
 
-int getline(char **s){
+int _getline(char **s){
     int c, i, numero;
     numero = MAXLINE;
     *s = (char *)malloc(numero * sizeof(char));
@@ -51,7 +53,6 @@ int getline(char **s){
             }
             *s = temp;
             numero += 100;
-            printf("se realoco!\n");
         }
         (*s)[i] = c;
     }
@@ -63,18 +64,18 @@ int getline(char **s){
     return i;
 }
 
-void reverseString(char **s, int len) {
+void reverseString(char **s) {
     int j = 0;
+    int len = _strLen(*s);
     char *temp = malloc(len);
     for (int i = len-2; i >= 0; i--) {
         temp[j] = (*s)[i];
         j++;
     }
+    temp[j] = '\n';
+    temp[j+1] = '\0';
     (*s) = temp;
-    (*s)[j] = '\n';
-    (*s)[j+1] = '\0';
 }
-
 void removeWhiteTab(char **s, int len) {
     int c;
     int i;
@@ -91,7 +92,7 @@ void removeWhiteTab(char **s, int len) {
     }
 }
 
-void copy(char **to, char from[]) {
+void _copy(char **to, char from[]) {
     int i, length, length2, numero;
     numero = MAXLINE;
     i = 0;
@@ -109,7 +110,6 @@ void copy(char **to, char from[]) {
             return;
         }
         *to = temp;
-        printf("Se realoco!\n");
         while(((*to)[length + i] = from[i]) != '\0') {
             ++i;
         }

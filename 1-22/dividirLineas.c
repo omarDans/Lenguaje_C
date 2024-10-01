@@ -1,10 +1,10 @@
-#include <stdio.H>
+#include <stdio.h>
 #include <stdlib.h>
 
 #define MAXLINE 10
 
-int getline(char **s);
-void copy(char **to, char*from);
+int _getline(char **s);
+void _copy(char **to, char*from);
 int _strlen(char*str);
 void dividirLinea(char **str, int len);
 
@@ -12,9 +12,9 @@ void main(void) {
     char* line = NULL;
     int len;
     char *buffer = NULL;
-    while ((len = getline(&line)) > 0) {
+    while ((len = _getline(&line)) > 0) {
         dividirLinea(&line, len);
-        copy(&buffer, line);
+        _copy(&buffer, line);
     }
     if (buffer != NULL) {
         printf("%s", buffer);
@@ -40,7 +40,7 @@ void dividirLinea(char**str, int len) {
     }
 }
 
-int getline(char **s) {
+int _getline(char **s) {
     char c;
     int i, numero;
     numero = 100;
@@ -68,7 +68,7 @@ int getline(char **s) {
     return i;
 }
 
-void copy(char**to, char*from){
+void _copy(char**to, char*from){
     int length, length2, i, numero;
     i = 0; 
     if (*to == NULL) {
