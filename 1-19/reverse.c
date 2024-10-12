@@ -24,6 +24,8 @@ int main()
             reverseString(&line);
             _copy(&buffer, line);
         }
+        free(line);
+        line = NULL;
     } 
     if (buffer != NULL) {
         printf("\n\nREVERSED\n\n");
