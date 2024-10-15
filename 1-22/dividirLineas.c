@@ -17,7 +17,7 @@ void main(void) {
         _copy(&buffer, line);
     }
     if (buffer != NULL) {
-        printf("%s", buffer);
+        printf("\n\nSOLUCION\n%s", buffer);
         free(buffer);
         buffer = NULL;
     }
@@ -29,9 +29,8 @@ void dividirLinea(char**str, int len) {
     int i, size, division, j;
     char *buffer;
     size = MAXLINE;
-    division = len / size;
     j = size;
-    while ((*str)[j] != '\0') {
+    while ((*str)[j] != '\0' && j < len) {
         if ((*str)[j] == ' ') {
             (*str)[j] = '\n';
             j += size;
