@@ -1,3 +1,7 @@
+/* No estoy completamente seguro si este ejercicio era esto lo que buscaba, me parece excesivamente trivial 
+Tal vez existe otra forma de lograr esto sin usar && o ||. Si por algo estás leyendo esto y sabes hacerlo de otra forma no dudes en crear un pull request o comentármelo
+de alguna manera*/
+
 #include <stdio.h>
 #include <string.h>
 
