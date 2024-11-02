@@ -33,21 +33,24 @@ void squeeze(char **s1, char *s2) {
     int i, j, x, len, c, c2;
     i = x = 0;
     len = _strLen(s2);
-    printf("LEN %d", len);
+    
     while ((c = (*s1)[i]) != '\0') {
-        printf("caracter uno: %c\n", c);
+        int encontrado = 0;
+        
         for (j = 0; j < len; ++j) {
             c2 = s2[j];
-            printf("caracter dos: %c\n", c2);
             if (c2 == c) {
-                i++;
+                encontrado = 1;
                 break;
             }
         }
-        (*s1)[x++] = (*s1)[i];
+        
+        if (!encontrado) {
+            (*s1)[x++] = c;
+        }
         i++;
     }
-    printf("LA I: %d", i);
+    
     (*s1)[x] = '\0';
 }
 
